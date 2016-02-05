@@ -6,11 +6,11 @@
 
     var main = $("#main");
     main.on("mouseenter", function () {
-        main.style = "background-color: #898;";
+        this.style = "background-color: #898;";
     });
 
     main.on("mouseleave", function () {
-        main.style = "";
+        this.style = "";
     });
 
     var menuOptions = $("ul.menu li a");
