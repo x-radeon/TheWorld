@@ -1,0 +1,29 @@
+{
+  "siteName": {
+    "value": "TheWorld-xradeon"
+  },
+  "hostingPlanName": {
+    "value": "Free"
+  },
+  "siteLocation": {
+    "value": "West US"
+  },
+  "sku": {
+    "value": "Free"
+  },
+  "workerSize": {
+    "value": "0"
+  },
+  "siteMode": {
+    "value": "Limited"
+  },
+  "computeMode": {
+    "value": "0"
+  },
+  "subscriptionId": {
+    "value": "ebe47eed-8312-4a48-864f-975719fc38ab"
+  },
+  "resourceGroup": {
+    "value": "xradeon-test"
+  }
+}
