@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TheWorld.ViewModels.ContactViewModel
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+@{
+    ViewBag.Title = "Contact Us - The World xRadeon";
+}
+
+<h2>The Contact Us Page</h2>
+<form method="post">
+    @if (ViewBag.Message != null)
+    {
+        <div>@ViewBag.Message</div>
+    }
+    <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
+    <label asp-for="Name">Name</label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+    <label asp-for="Email">Email</label>
+    <input type="email" asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+    <label asp-for="Message">Message</label>
+    <textarea cols="40" rows="4" asp-for="Message"></textarea>
+    <span asp-validation-for="Message"></span>
+    <div><input type="submit" value="Send Message" /></div>
+</form>
