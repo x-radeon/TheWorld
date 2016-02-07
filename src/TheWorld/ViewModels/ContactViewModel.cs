@@ -1,16 +1,19 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace TheWorld.ViewModels
 {
     public class ContactViewModel
     {
+        Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+
         [Required]
-        [StringLength(255, MinimumLength = 5)]
+        [StringLength(30, MinimumLength = 1)]
         public string Name { get; set; }
 
         [Required]
-        [EmailAddress]
+        [RegularExpression("^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$", ErrorMessage = "Not a valid email")]
         public string Email { get; set; }
 
         [Required]
