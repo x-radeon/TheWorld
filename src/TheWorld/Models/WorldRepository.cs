@@ -44,5 +44,30 @@ namespace TheWorld.Models
                 return null;
             }
         }
+
+        public void AddTrip(Trip newTrip)
+        {
+            _context.Add(newTrip);
+        }
+
+        public bool SaveAll()
+        {
+            return _context.SaveChanges() > 0;
+        }
+
+        public Trip GetTripByName(string tripName)
+        {
+            return _context.Trips.Include(t => t.Stops)
+                .Where(t => t.Name == tripName)
+                .FirstOrDefault();
+        }
+
+        public void AddStop(string tripName, Stop newStop)
+        {
+            var theTrip = GetTripByName(tripName);
+            newStop.Order = theTrip.Stops.Max(s => s.Order)+1;
+            theTrip.Stops.Add(newStop);
+            _context.Stops.Add(newStop);
+        }
     }
 }
