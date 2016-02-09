@@ -14,11 +14,8 @@ namespace TheWorld.Models
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-#if DEBUG
-            var connectionString = Startup.Configuration["Data:WorldContextConnectionLocal"];
-#else
             var connectionString = Startup.Configuration["Data:WorldContextConnection"];
-#endif
+
             optionsBuilder.UseSqlServer(connectionString);
 
             base.OnConfiguring(optionsBuilder);

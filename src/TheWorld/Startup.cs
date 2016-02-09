@@ -8,7 +8,6 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 using TheWorld.Services;
-//using Microsoft.Framework.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
 using TheWorld.Models;
