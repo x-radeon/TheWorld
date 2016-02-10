@@ -5,18 +5,19 @@
   },
 
   "dependencies": {
-    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
-    "Microsoft.Framework.Configuration": "1.0.0-beta8",
-    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
-    "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
+    "AutoMapper": "4.2.0",
+    "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.Core": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-    "EntityFramework.Commands": "7.0.0-rc1-final",
+    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+    "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
-    "AutoMapper": "4.2.0",
+    "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
+    "Microsoft.Framework.Configuration": "1.0.0-beta8",
     "System.Net.Http": "4.0.1-beta-23516"
   },
 
@@ -26,12 +27,7 @@
   },
 
   "frameworks": {
-    "dnx451": {
-      "dependencies": {
-        "Microsoft.Net.Http": "2.2.22",
-        "System.Net.Http": "4.0.1-beta-23516"
-      }
-    },
+    "dnx451": { },
     "dnxcore50": { }
   },
 

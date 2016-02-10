@@ -7,10 +7,12 @@ using Microsoft.Extensions.Logging;
 using TheWorld.Models;
 using System.Net;
 using AutoMapper;
+using Microsoft.AspNet.Authorization;
 using TheWorld.Services;
 
 namespace TheWorld.Controllers.Api
 {
+    [Authorize]
     [Route("api/trips/{tripName}/stops")]
     public class StopController : Controller
     {
@@ -30,7 +32,7 @@ namespace TheWorld.Controllers.Api
         {
             try
             {
-                var results = _repository.GetTripByName(tripName);
+                var results = _repository.GetTripByName(tripName, User.Identity.Name);
 
                 if (results == null)
                 {
@@ -69,7 +71,7 @@ namespace TheWorld.Controllers.Api
                     newStop.Longitude = coordResults.Longitude;
 
                     //save to db
-                    _repository.AddStop(tripName, newStop);
+                    _repository.AddStop(tripName, User.Identity.Name, newStop);
 
                     if (_repository.SaveAll())
                     {
