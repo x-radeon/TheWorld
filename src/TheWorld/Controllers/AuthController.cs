@@ -13,9 +13,9 @@ namespace TheWorld.Controllers
     {
         private SignInManager<WorldUser> _signInManager;
 
-        public AuthController(SignInManager<WorldUser> singInManager)
+        public AuthController(SignInManager<WorldUser> signInManager)
         {
-            _signInManager = singInManager;
+            _signInManager = signInManager;
         }
         public IActionResult Login()
         {

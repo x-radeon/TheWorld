@@ -39,10 +39,10 @@ namespace TheWorld
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(config =>
-            {
+            {/*
 #if !DEBUG
                 config.Filters.Add(new RequireHttpsAttribute());
-#endif
+#endif */
             })
                 .AddJsonOptions(opt =>
                 {
