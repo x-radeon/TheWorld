@@ -5,11 +5,12 @@
   },
 
   "dependencies": {
-    "AutoMapper": "4.2.0",
+    "AutoMapper": "4.1.1",
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.Core": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
     "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-rc1-final",
@@ -38,5 +39,9 @@
   "publishExclude": [
     "**.user",
     "**.vspscc"
-  ]
+  ],
+
+  "scripts": {
+    "prepublish": [ "bower install" ]
+  }
 }

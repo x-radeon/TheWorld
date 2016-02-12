@@ -1,0 +1,42 @@
+﻿<div>
+    <div><a href="#/" class="btn btn-sm btn-default"><i class="fa fa-angle-double-left"></i> Go back</a>
+    </div>
+    <div class="col-md-3">
+        <h2>{{ vm.tripName }}</h2>
+        <wait-cursor display-when="vm.isBusy"></wait-cursor>
+        <div class="alert alert-danger" ng-show="vm.errorMessage">{{ vm.errorMessage }}</div>
+        <form novalidate name="newStopForm" ng-submit="vm.addStop()">
+            <div class="form-group">
+                <label>Date</label>
+                <input class="form-control" ng-model="vm.newStop.arrival" id="arrival" name="arrival" required ng-pattern="/^(\d{2})\/(\d{2})\/(\d{4})$/"/>
+                <span class="text text-danger" ng-show="newStopForm.arrival.$error.pattern">Date must be: MM/DD/YYYY</span>
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input class="form-control" ng-model="vm.newStop.name" id="name" name="name" required ng-minlength="5"/>
+                <span class="text text-danger" ng-show="newStopForm.name.$error.minlength">Location must be 5 chars long</span>
+            </div>
+            <div>
+                <input type="submit" value="Add" class="btn btn-success" ng-disabled="newStopForm.$invalid"/>
+            </div>
+        </form>
+        <br/>
+        <table class="table table-striped table-responsive">
+            <tr>
+                <th>Location</th>
+                <th>Arrival</th>
+            </tr>
+            <tr ng-repeat="stop in vm.stops">
+                <td>{{ stop.name }}</td>
+                <td>{{ stop.arrival | date:shortDate }}</td>
+            </tr>
+        </table>
+        <div class="alert alert-info text text-center" ng-show="vm.noStopsMessage">{{ vm.noStopsMessage }}</div>
+        <br />
+    </div>
+
+    <div class="col-md-9">
+        <h2>The Map</h2>
+        <div id="map"></div>
+    </div>
+</div>

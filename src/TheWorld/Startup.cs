@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using TheWorld.Services;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.PlatformAbstractions;
-using TheWorld.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
+using TheWorld.Models;
+using TheWorld.Services;
 using TheWorld.ViewModels;
 
 namespace TheWorld
@@ -24,12 +19,13 @@ namespace TheWorld
     public class Startup
     {
         public static IConfigurationRoot Configuration;
+
         public Startup(IApplicationEnvironment appEnv)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(appEnv.ApplicationBasePath)
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
+              .SetBasePath(appEnv.ApplicationBasePath)
+              .AddJsonFile("config.json")
+              .AddEnvironmentVariables();
 
             Configuration = builder.Build();
         }
@@ -38,16 +34,12 @@ namespace TheWorld
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(config =>
-            {/*
-#if !DEBUG
-                config.Filters.Add(new RequireHttpsAttribute());
-#endif */
-            })
-                .AddJsonOptions(opt =>
-                {
-                    opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                });
+            // config.Filters.Add(new RequireHttpsAttribute());
+            services.AddMvc()
+            .AddJsonOptions(opt =>
+            {
+                opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             services.AddIdentity<WorldUser, IdentityRole>(config =>
             {
@@ -58,9 +50,10 @@ namespace TheWorld
                 {
                     OnRedirectToLogin = ctx =>
                     {
-                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == (int) HttpStatusCode.OK)
+                        if (ctx.Request.Path.StartsWithSegments("/api") &&
+                            ctx.Response.StatusCode == 200)
                         {
-                            ctx.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                         }
                         else
                         {
@@ -71,13 +64,13 @@ namespace TheWorld
                     }
                 };
             })
-                .AddEntityFrameworkStores<WorldContext>();
+            .AddEntityFrameworkStores<WorldContext>();
 
             services.AddLogging();
 
             services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<WorldContext>();
+              .AddSqlServer()
+              .AddDbContext<WorldContext>();
 
             services.AddScoped<CoordService>();
             services.AddTransient<WorldContextSeedData>();
@@ -86,7 +79,7 @@ namespace TheWorld
 #if DEBUG
             services.AddScoped<IMailService, DebugMailService>();
 #else
-
+      //services.AddScoped<IMailService, MailService>();
 #endif
         }
 
@@ -108,9 +101,10 @@ namespace TheWorld
             app.UseMvc(config =>
             {
                 config.MapRoute(
-                    name: "Default",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "App", action = "Index" });
+                  name: "Default",
+                  template: "{controller}/{action}/{id?}",
+                  defaults: new { controller = "App", action = "Index" }
+                  );
             });
 
             await seeder.EnsureSeedDataAsync();
