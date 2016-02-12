@@ -95,5 +95,10 @@ namespace TheWorld.Models
                 return null;
             }
         }
+
+        public void DeleteTrip(Trip trip)
+        {
+            _context.Remove(trip);
+        }
     }
 }

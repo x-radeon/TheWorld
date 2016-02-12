@@ -69,5 +69,37 @@ namespace TheWorld.Controllers.Api
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json(new { Message = "Failed", ModelState = ModelState} );
         }
+
+        [HttpDelete("/api/trips/{tripName}")]
+        public JsonResult Delete(string tripName)
+        {
+            try
+            {
+                var results = _repository.GetTripByName(tripName, User.Identity.Name);
+
+                if (results == null)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json("Failed to delete trip");
+                }
+
+                _repository.DeleteTrip(results);
+
+                if (_repository.SaveAll())
+                {
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return Json("Deleted Trip");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to delete trip", ex);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("Failed to delete trip");
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json("Failed to delete trip");
+        }
     }
 }

@@ -17,18 +17,23 @@
         vm.errorMessage = "";
         vm.isBusy = true;
 
-        $http.get("/api/trips")
-            .then(function(response) {
-                //worky
-                angular.copy(response.data, vm.trips);
 
-            }, function(error) {
-                //no worky
-                vm.errorMessage = "Failed to load data: " + error;
-            })
-            .finally(function() {
-                vm.isBusy = false;
-            });
+        vm.getTrip = function() {
+            $http.get("/api/trips")
+                .then(function(response) {
+                    //worky
+                    angular.copy(response.data, vm.trips);
+
+                }, function(error) {
+                    //no worky
+                    vm.errorMessage = "Failed to load data: " + error;
+                })
+                .finally(function() {
+                    vm.isBusy = false;
+                });
+        };
+
+        vm.getTrip();
 
         vm.addTrip = function () {
 
@@ -49,8 +54,20 @@
                 });
         };
 
+        vm.deleteTrip = function(trip) {
+            vm.isBusy = true;
+            vm.errorMessage = "";
 
-
+            $http.delete("/api/trips/" + trip)
+                .then(function () {
+                    vm.getTrip();
+                }, function (error) {
+                    //no worky
+                    vm.errorMessage = "Failed to delete trip: " + error;
+                })
+                .finally(function () {
+                    vm.isBusy = false;
+                });
+        }
     }
-
 })();
