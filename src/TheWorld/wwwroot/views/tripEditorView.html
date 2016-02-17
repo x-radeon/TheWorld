@@ -1,10 +1,23 @@
 ﻿<div>
-    <div><a href="#/" class="btn btn-sm btn-default"><i class="fa fa-angle-double-left"></i> Go back</a>
+    <div>
+        <a href="#/" class="btn btn-sm btn-default"><i class="fa fa-angle-double-left"></i> Go back</a>
     </div>
     <div class="col-md-3">
-        <h2>{{ vm.tripName }}</h2>
+        <h2 id="tripName">{{ vm.tripName }}</h2>
+        <form id="editNameForm" class="hidden" novalidate name="editNameForm" ng-submit="vm.submitEditNameForm()">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="vm.editNameForm.name" id="name" name="name" required ng-minlength="5" />
+                <span class="text text-danger" ng-show="editNameForm.name.$error.minlength">Name must be 5 characters long</span>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-success btn-sm" ng-disabled="newStopForm.$invalid"/>
+                <a href="" ng-click="vm.cancelEdit()" class="btn btn-sm btn-danger">Cancel</a>
+            </div>
+        </form>
+        <a id="editNameButton" href="" ng-click="vm.editName()" class="btn btn-sm btn-info">Edit Name</a>
         <wait-cursor display-when="vm.isBusy"></wait-cursor>
         <div class="alert alert-danger" ng-show="vm.errorMessage">{{ vm.errorMessage }}</div>
+        <h4>Add Stop</h4>
         <form novalidate name="newStopForm" ng-submit="vm.addStop()">
             <div class="form-group">
                 <label>Date</label>
@@ -17,10 +30,11 @@
                 <span class="text text-danger" ng-show="newStopForm.name.$error.minlength">Location must be 5 chars long</span>
             </div>
             <div>
-                <input type="submit" value="Add" class="btn btn-success" ng-disabled="newStopForm.$invalid"/>
+                <input id="addStopButton" type="submit" value="Add" class="btn btn-success" ng-disabled="newStopForm.$invalid"/>
             </div>
         </form>
-        <br/>
+        <h4>Stops</h4>
+        <br />
         <table class="table table-striped table-responsive">
             <tr>
                 <th>Location</th>

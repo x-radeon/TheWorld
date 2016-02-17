@@ -75,18 +75,25 @@ namespace TheWorld
             services.AddScoped<CoordService>();
             services.AddTransient<WorldContextSeedData>();
             services.AddScoped<IWorldRepository, WorldRepository>();
-
-#if DEBUG
             services.AddScoped<IMailService, DebugMailService>();
-#else
-      //services.AddScoped<IMailService, MailService>();
-#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, WorldContextSeedData seeder, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, WorldContextSeedData seeder, ILoggerFactory loggerFactory, IHostingEnvironment environment)
         {
-            loggerFactory.AddDebug(LogLevel.Warning);
+
+            if (environment.IsDevelopment())
+            {
+                loggerFactory.AddDebug(LogLevel.Information);
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                loggerFactory.AddDebug(LogLevel.Error);
+                app.UseDeveloperExceptionPage();
+            }
+
+ 
 
             app.UseStaticFiles();
 

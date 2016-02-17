@@ -101,5 +101,20 @@ namespace TheWorld.Controllers.Api
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json("Failed to delete trip");
         }
+
+        [HttpPut("/api/trips/{tripName}")]
+        public JsonResult Put(string tripName, [FromBody]string newTripName)
+        {
+            try
+            {
+                return Json("true");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to delete trip", ex);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("Failed to update trip");
+            }
+        }
     }
 }

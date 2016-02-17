@@ -14,6 +14,7 @@
         vm.newStop = {};
         vm.isBusy = true;
         var url = "/api/trips/" + vm.tripName + "/stops";
+        
 
         $http.get(url)
             .then(function(response) {
@@ -49,6 +50,35 @@
                     vm.isBusy = false;
                 });
         };
+
+        vm.submitEditNameForm = function(tripName) {
+            vm.isBusy = true;
+
+            $http.put("/api/trips/" + tripName, { newTripName: vm.editNameForm.name })
+                .then(function(response) {
+                    //success
+                    jQuery("#tripName").html = response.name;
+                }, function(err) {
+                    //failure
+                    vm.errorMessage = "Failed to update Trip name!" + err;
+                })
+                .finally(function() {
+                    vm.isBusy = false;
+                });
+
+        }
+
+        vm.editName = function () {
+            //var tripNameText = jQuery("#tripName").html();
+            //jQuery("#editNameForm name").value = tripNameText;
+            jQuery("#editNameForm").removeClass("hidden");
+            jQuery("#editNameButton").addClass("hidden");
+        }
+
+        vm.cancelEdit = function() {
+            jQuery("#editNameForm").addClass("hidden");
+            jQuery("#editNameButton").removeClass("hidden");
+        }
     }
 
     function _showMap(stops) {
